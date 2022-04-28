@@ -24,7 +24,7 @@ spring:
         encrypt:
           enabled: false
         git:
-          uri:
+          uri: git@github.com:rmatute/esign-cloud-config-public.git
           clone-on-start: true
           ignore-local-ssh-settings: true
           #passphrase: 
