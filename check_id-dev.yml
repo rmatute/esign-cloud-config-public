@@ -1,0 +1,147 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# More information on profiles: https://www.jhipster.tech/profiles/
+# More information on configuration properties: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+logging:
+  level:
+    ROOT: DEBUG
+    tech.jhipster: DEBUG
+    org.hibernate.SQL: DEBUG
+    com.eclipsoft.checkid: DEBUG
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://admin:${jhipster.registry.password}@192.168.110.81:8762/eureka/
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-exclude: static/**
+    livereload:
+      enabled: false # we use Webpack dev server + BrowserSync for livereload
+  jackson:
+    serialization:
+      indent-output: true
+  cloud:
+    config:
+      uri: http://admin:${jhipster.registry.password}@192.168.110.81:8762/config
+      # name of the config server's property source (file.yml) that we want to use
+      name: check_id
+      profile: dev
+      label: main # toggle to switch to a different version of the configuration as stored in git
+      # it can be set to any label, branch or commit of the configuration source Git repository
+  data:
+    mongodb:
+      uri: '{cipher}c7a02843004dfb48f2ded74a60a0efd6994bfdb835e0ffd14e4445171d7c8325bda248a574df8a36d6cf16c33f71d78314e4d6fb7bac462eb86ae6ba90c18b3a4d61af7b8bfb5ba84ee67aebc9d73054'
+      database: '{cipher}05662e8bf214d47765dd3fe3b8631b7f773d6cade76ef228e7a642f5c2753f60'
+  mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+  messages:
+    cache-duration: PT1S # 1 second, see the ISO 8601 standard
+  thymeleaf:
+    cache: false
+  sleuth:
+    # https://github.com/spring-projects/spring-framework/issues/27844#issuescomment-1002866885
+    # https://github.com/spring-cloud/spring-cloud-sleuth/issues/2094
+    async:
+      enabled: false
+    enabled: false
+    sampler:
+      probability: 1 # report 100% of traces
+  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
+    base-url: http://localhost:9411
+    enabled: false
+    locator:
+      discovery:
+        enabled: true
+
+server:
+  port: 8012
+
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+jhipster:
+  gateway:
+    rate-limiting:
+      enabled: false
+      limit: 100000
+      duration-in-seconds: 3600
+  registry:
+    password: admin
+  # CORS is only enabled by default with the "dev" profile
+  cors:
+    # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
+    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000'
+    # Enable CORS when running in GitHub Codespaces
+    allowed-origin-patterns: 'https://*.githubpreview.dev'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
+    allow-credentials: true
+    max-age: 1800
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: NmMzNDA2MWY1M2M5M2I2Yzk2MzZiODczNmE3ZGZmODU2M2M5ZWUyMGM2YmViYmUzMGZkN2U0OWNiMmE4ZjZjZmRjNGJiMGFmMDJmZmRlNjkxZDNkMzFiNzg5MWI4MmY1ZDRiZTdiNzNjMjc3NGI3YWUwOTcxNjFhZGMyYTY5OGU=
+        # Token is valid 24 hours
+        #token-validity-in-seconds: 86400
+        token-validity-in-seconds: 2
+        token-validity-in-seconds-for-remember-me: 2592000
+  mail: # specific JHipster mail property, for standard properties see MailProperties
+    base-url: http://127.0.0.1:8012
+  logging:
+    use-json-format: false # By default, logs are not in Json format
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+application:
+  integration:
+    civil-registry:
+      base-url: '{cipher}32cded0c91f84cff989b35da3be608901af82d8f733b968173836b7b1548a3b6fb6c3cb2d65bb38828d7b90a2c7535e53396ca421a6b7f9ab0c49742b5fac3a5'
+      resource: '{cipher}2986ebe204ee4a581a1509833a412760a58209b93f73339eb35561f85978312f94d76a5e1d34d19eacd8260e979efe6531ab34e175bf04edabcfe1269ed5741c'
+      timeout-in-seconds: 25
+      agency-code: 299
+      institution-code: 304
+      username: '{cipher}6b9e3625eea3e6f34219288299641ff93ff3768a75bdad15e1d5e3ff9ba056a3'
+      password: '{cipher}b113365ed803870d0d8a1bed9ad7841eba2d37535a35da77f70ce5f5297fe7c0'
+
+mongodb.encrypt:
+  silent-decryption-failures: true
+  default-key: 1
+  keys:
+    - version: 1
+      key: '{cipher}a673e4b43d07269564929db4450e91f95e52189ef41ef78631c860970846ed4a97caa28b57c16836e3b25889bafb133e3c05f823679e8f9fe62163330fbbbba7'
