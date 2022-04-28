@@ -14,6 +14,9 @@ eureka:
     service-url:
       defaultZone: http://admin:${jhipster.registry.password}@localhost:8762/eureka/
 
+encrypt:
+  key: AiJjLaJKIvpTcx67bFJejW5xgRWNbDmh
+
 spring:
   cloud:
     config:
