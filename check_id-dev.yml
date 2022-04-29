@@ -131,7 +131,7 @@ jhipster:
 application:
   integration:
     civil-registry:
-      base-url: '{cipher}32cded0c91f84cff989b35da3be608901af82d8f733b968173836b7b1548a3b6fb6c3cb2d65bb38828d7b90a2c7535e53396ca421a6b7f9ab0c49742b5fac3a5'
+      base-url: '{cipher}dc1101dfd964dc4ac9819f79f1f2018b1a8af2dcbe8806a2987bbbd6236fc54b89120b64ee813382149e3e2276f45850ea91ec775ee716602a0b1297afdc17c1'
       resource: '{cipher}2986ebe204ee4a581a1509833a412760a58209b93f73339eb35561f85978312f94d76a5e1d34d19eacd8260e979efe6531ab34e175bf04edabcfe1269ed5741c'
       timeout-in-seconds: 25
       agency-code: 299
